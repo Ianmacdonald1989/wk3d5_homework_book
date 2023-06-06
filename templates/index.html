@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Books Available!</h1>
+  
+
+    <form class="form-inline" action="/books" method="post">
+    <label for="name">Title</label>
+    <input type="text" name="Title" id="title">
+    <label for="author">Author</label>
+    <input type="text" name="author" id="author">
+    <label for="genre">Genre</label>
+    <input type="text" name="genre" id="genre">
+    <input type="submit" value="Add book">
+    </form> 
+    {% for item in book_lists %}
+    <div class="book-container">
+    {% for book in books %}
+    <div class="book">
+    <h2>{{ book.title }}</h2>
+    <h5>Author: {{ item.author }}</h5>
+    <h5>Genre: {{ item.genre }}</h5>
+    <h2><a href = "books/{{loop.index-1}}">link to book-container</a>
+        {% endfor %}
+
+        <form class="form-inline" action="/books/delete/{{ book.title }}" method="POST">
+            <input type="submit" value="Delete by Title">
+        </form>
+
+        <form class="form-inline" action="/title/del/{{ books.index(book) }}" method="POST">
+            <input type="submit" value="Delete by Index">
+        </form>          
+    </div>
+    {% endfor %}
+    </div>
+{% endblock %}
